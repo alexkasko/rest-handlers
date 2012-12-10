@@ -6,7 +6,7 @@ _Note: if you are happy with JAX-RS (JSR311) you probably don't need this librar
 Thin library over servlet API, eases request dispatching with regular expressions. Uses extended
 regular expression library with named groups support (for JDK6) to create clean URLs.
 
-Library only depends on [named-regexp](https://github.com/tony19/named-regexp).
+Library depends on [named-regexp](https://github.com/tony19/named-regexp).
 
 Javadocs for the latest release are available [here](http://alexkasko.github.com/rest-handlers/javadocs/rest-handlers).
 
@@ -110,6 +110,11 @@ Classes description
   * `DefaultNotFoundHandler` - default implementation, returns `404` with available handlers list
  * `ExceptionHandler` - will be called on exception during requst processing
   * `DefaultExceptionHandler` - default implementation, returns `500` with stacktrace
+
+License information
+-------------------
+
+This project is released under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 Changelog
 ---------
