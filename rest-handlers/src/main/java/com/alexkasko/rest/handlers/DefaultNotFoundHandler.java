@@ -25,14 +25,17 @@ public class DefaultNotFoundHandler implements NotFoundHandler {
         for(HandlersMappingEntry en : dispatcher.getRegistryGet()) {
             response.getWriter().write("GET: ");
             response.getWriter().write(en.getPattern());
+            response.getWriter().write("\n");
         }
         for(HandlersMappingEntry en : dispatcher.getRegistryPost()) {
             response.getWriter().write("POST: ");
             response.getWriter().write(en.getPattern());
+            response.getWriter().write("\n");
         }
         for(HandlersMappingEntry en : dispatcher.getRegistryPut()) {
             response.getWriter().write("PUT: ");
             response.getWriter().write(en.getPattern());
+            response.getWriter().write("\n");
         }
     }
 }

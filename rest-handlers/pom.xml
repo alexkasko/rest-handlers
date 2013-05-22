@@ -4,7 +4,7 @@
     <parent>
         <artifactId>rest-handlers-parent</artifactId>
         <groupId>com.alexkasko.rest</groupId>
-        <version>1.1-SNAPSHOT</version>
+        <version>1.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>rest-handlers</artifactId>
     <packaging>jar</packaging>
