@@ -180,6 +180,20 @@ public class HandlersDispatcher {
         }
 
         /**
+         * Adds all GET, PUT and DELETE handlers from specified builder to this builder.
+         * Not-found and exception handlers are ignored.
+         *
+         * @param otherBuilder builder to add handlers from
+         * @return builder itself
+         */
+        public Builder addHandlersFromBuilder(Builder otherBuilder) {
+            mappingGet.addAll(otherBuilder.mappingGet);
+            mappingPost.addAll(otherBuilder.mappingPost);
+            mappingPut.addAll(otherBuilder.mappingPut);
+            return this;
+        }
+
+        /**
          * Sets handler to use when no handler can be found in registry for provided request
          *
          * @param notFoundHandler not-found handler
