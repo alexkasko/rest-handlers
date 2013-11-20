@@ -33,6 +33,20 @@ public class HandlersMappingEntry<T extends RestHandler> {
     }
 
     /**
+     * Constructor for creating new entries from existing ones with additional pattern prefix
+     *
+     * @param prefix pattern prefix
+     * @param en child mapping entry
+     */
+    HandlersMappingEntry(String prefix, HandlersMappingEntry<T> en) {
+        if (null == prefix) throw new IllegalArgumentException("Provided prefix is null");
+        if (null == en) throw new IllegalArgumentException("Provided entry is null");
+        this.pattern = NamedPattern.compile(prefix + en.pattern.namedPattern());
+        this.ra = en.ra;
+        this.clazz = en.clazz;
+    }
+
+    /**
      * Matched request path info
      *
      * @param input request path info

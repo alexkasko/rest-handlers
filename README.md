@@ -18,7 +18,7 @@ Maven dependency (available in [central repository](http://repo1.maven.org/maven
     <dependency>
         <groupId>com.alexkasko.rest</groupId>
         <artifactId>rest-handlers</artifactId>
-        <version>1.0.2</version>
+        <version>1.1</version>
     </dependency>
 
 Request processing is split between transport-level (`TransportHandler`) and application level (`RestHandler`) classes.
@@ -118,6 +118,10 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 
 Changelog
 ---------
+
+**1.1** (2013-11-20)
+
+ * sub-dispatchers (submappings) support
 
 **1.0.2** (2013-07-14)
 

@@ -4,7 +4,7 @@
     <parent>
         <artifactId>rest-handlers-parent</artifactId>
         <groupId>com.alexkasko.rest</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
     <artifactId>rest-handlers</artifactId>
     <packaging>jar</packaging>
@@ -47,6 +47,13 @@
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
             <scope>provided</scope>
+        </dependency>
+        <!-- test -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

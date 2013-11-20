@@ -180,16 +180,23 @@ public class HandlersDispatcher {
         }
 
         /**
-         * Adds all GET, PUT and DELETE handlers from specified builder to this builder.
-         * Not-found and exception handlers are ignored.
+         * Adds all GET, PUT and DELETE handlers from specified list to this builder
+         * prepending specified prefix to all patterns from the list.
          *
-         * @param otherBuilder builder to add handlers from
+         * @param list list of handlers mapping
          * @return builder itself
          */
-        public Builder addHandlersFromBuilder(Builder otherBuilder) {
-            mappingGet.addAll(otherBuilder.mappingGet);
-            mappingPost.addAll(otherBuilder.mappingPost);
-            mappingPut.addAll(otherBuilder.mappingPut);
+        @SuppressWarnings("unchecked")
+        public Builder addList(String prefix, HandlersSubmapping list) {
+            for(HandlersMappingEntry<?> en : list.getMappingGet()) {
+                mappingGet.add(new HandlersMappingEntry(prefix, en));
+            }
+            for(HandlersMappingEntry<?> en : list.getMappingPost()) {
+                mappingPost.add(new HandlersMappingEntry(prefix, en));
+            }
+            for(HandlersMappingEntry<?> en : list.getMappingPut()) {
+                mappingPut.add(new HandlersMappingEntry(prefix, en));
+            }
             return this;
         }
 
