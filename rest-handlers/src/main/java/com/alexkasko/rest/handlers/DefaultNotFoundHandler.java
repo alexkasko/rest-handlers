@@ -37,5 +37,10 @@ public class DefaultNotFoundHandler implements NotFoundHandler {
             response.getWriter().write(en.getPattern());
             response.getWriter().write("\n");
         }
+        for(HandlersMappingEntry en : dispatcher.getRegistryDelete()) {
+            response.getWriter().write("DELETE: ");
+            response.getWriter().write(en.getPattern());
+            response.getWriter().write("\n");
+        }
     }
 }

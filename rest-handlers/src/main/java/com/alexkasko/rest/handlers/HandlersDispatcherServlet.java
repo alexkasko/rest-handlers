@@ -73,6 +73,19 @@ public class HandlersDispatcherServlet extends HttpServlet {
         dispatch(req, resp);
     }
 
+    /**
+     * Delegates request dispatching to {@link HandlersDispatcher}
+     *
+     * @param req request
+     * @param resp response
+     * @throws ServletException on {@link HandlersDispatcher} not found in ServletContext
+     * @throws IOException cannot happen
+     */
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        dispatch(req, resp);
+    }
+
     private void dispatch(HttpServletRequest req, HttpServletResponse resp) throws UnsupportedEncodingException, ServletException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");

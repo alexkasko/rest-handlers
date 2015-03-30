@@ -25,14 +25,17 @@ public class HandlersDispatcher {
     private final List<HandlersMappingEntry<?>> registryGet;
     private final List<HandlersMappingEntry<?>> registryPost;
     private final List<HandlersMappingEntry<?>> registryPut;
+    private final List<HandlersMappingEntry<?>> registryDelete;
     private final NotFoundHandler notFoundHandler;
     private final ExceptionHandler exceptionHandler;
 
-    private HandlersDispatcher(List<HandlersMappingEntry<?>> registryGet, List<HandlersMappingEntry<?>> registryPost, List<HandlersMappingEntry<?>> registryPut,
+    private HandlersDispatcher(List<HandlersMappingEntry<?>> registryGet, List<HandlersMappingEntry<?>> registryPost,
+                               List<HandlersMappingEntry<?>> registryPut, List<HandlersMappingEntry<?>> registryDelete,
                                NotFoundHandler notFoundHandler, ExceptionHandler exceptionHandler) {
         this.registryGet = registryGet;
         this.registryPost = registryPost;
         this.registryPut = registryPut;
+        this.registryDelete = registryDelete;
         this.notFoundHandler = notFoundHandler;
         this.exceptionHandler = exceptionHandler;
     }
@@ -60,6 +63,7 @@ public class HandlersDispatcher {
             if("GET".equals(req.getMethod())) mapping = registryGet;
             else if("POST".equals(req.getMethod())) mapping = registryPost;
             else if("PUT".equals(req.getMethod())) mapping = registryPut;
+            else if("DELETE".equals(req.getMethod())) mapping = registryDelete;
                 // cannot happen, methods are filtered in servlet
             else throw new IllegalArgumentException("Unsupported HTTP method: '" + req.getMethod() + "'");
             for(HandlersMappingEntry en : mapping) {
@@ -102,6 +106,15 @@ public class HandlersDispatcher {
         return unmodifiableList(registryPut);
     }
 
+    /**
+     * Returns registry for {@code DELETE} method
+     *
+     * @return registry for {@code DELETE} method
+     */
+    public List<HandlersMappingEntry<?>> getRegistryDelete() {
+        return unmodifiableList(registryDelete);
+    }
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -109,6 +122,7 @@ public class HandlersDispatcher {
         sb.append("{registryGet=").append(registryGet);
         sb.append(", registryPost=").append(registryPost);
         sb.append(", registryPut=").append(registryPut);
+        sb.append(", registryDelete=").append(registryDelete);
         sb.append(", notFoundHandler=").append(notFoundHandler);
         sb.append(", exceptionHandler=").append(exceptionHandler);
         sb.append('}');
@@ -122,6 +136,7 @@ public class HandlersDispatcher {
         private final List<HandlersMappingEntry<?>> mappingGet = new ArrayList<HandlersMappingEntry<?>>();
         private final List<HandlersMappingEntry<?>> mappingPost = new ArrayList<HandlersMappingEntry<?>>();
         private final List<HandlersMappingEntry<?>> mappingPut = new ArrayList<HandlersMappingEntry<?>>();
+        private final List<HandlersMappingEntry<?>> mappingDelete = new ArrayList<HandlersMappingEntry<?>>();
         private NotFoundHandler notFoundHandler;
         private ExceptionHandler exceptionHandler;
 
@@ -180,6 +195,23 @@ public class HandlersDispatcher {
         }
 
         /**
+         * Registers handler for {@code PUT} requests
+         *
+         * @param pattern named regex pattern
+         * @param transportHandler transport handler instance
+         * @param appHandlerClass app handler class
+         * @param <T> app handler type
+         * @return builder itself
+         */
+        @SuppressWarnings("unchecked")
+        public <T extends RestHandler> Builder addDelete(String pattern, TransportHandler<T> transportHandler,
+                                                      Class<? extends T> appHandlerClass) {
+            mappingDelete.add(new HandlersMappingEntry<T>(pattern, transportHandler, (Class) appHandlerClass));
+            return this;
+        }
+
+
+        /**
          * Adds all GET, PUT and DELETE handlers from specified list to this builder
          * prepending specified prefix to all patterns from the list.
          *
@@ -196,6 +228,9 @@ public class HandlersDispatcher {
             }
             for(HandlersMappingEntry<?> en : list.getMappingPut()) {
                 mappingPut.add(new HandlersMappingEntry(prefix, en));
+            }
+            for(HandlersMappingEntry<?> en : list.getMappingDelete()) {
+                mappingDelete.add(new HandlersMappingEntry(prefix, en));
             }
             return this;
         }
@@ -230,7 +265,7 @@ public class HandlersDispatcher {
         public HandlersDispatcher build() {
             NotFoundHandler nfh = null != this.notFoundHandler ? this.notFoundHandler : new DefaultNotFoundHandler();
             ExceptionHandler eh = null != this.exceptionHandler ? this.exceptionHandler : new DefaultExceptionHandler();
-            return new HandlersDispatcher(mappingGet, mappingPost, mappingPut, nfh, eh);
+            return new HandlersDispatcher(mappingGet, mappingPost, mappingPut, mappingDelete, nfh, eh);
         }
     }
 }

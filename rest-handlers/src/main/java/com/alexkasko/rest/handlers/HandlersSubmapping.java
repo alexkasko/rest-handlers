@@ -13,6 +13,7 @@ public class HandlersSubmapping {
     private final List<HandlersMappingEntry<? extends RestHandler>> mappingGet = new ArrayList<HandlersMappingEntry<? extends RestHandler>>();
     private final List<HandlersMappingEntry<? extends RestHandler>> mappingPost = new ArrayList<HandlersMappingEntry<? extends RestHandler>>();
     private final List<HandlersMappingEntry<? extends RestHandler>> mappingPut = new ArrayList<HandlersMappingEntry<? extends RestHandler>>();
+    private final List<HandlersMappingEntry<? extends RestHandler>> mappingDelete = new ArrayList<HandlersMappingEntry<? extends RestHandler>>();
 
     /**
      * Registers handler for {@code GET} requests
@@ -62,6 +63,23 @@ public class HandlersSubmapping {
         return this;
     }
 
+    /**
+     * Registers handler for {@code DELETE} requests
+     *
+     * @param pattern          named regex pattern
+     * @param transportHandler transport handler instance
+     * @param appHandlerClass  app handler class
+     * @param <T>              app handler type
+     * @return builder itself
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends RestHandler> HandlersSubmapping addDelete(String pattern, TransportHandler<T> transportHandler,
+                                                              Class<? extends T> appHandlerClass) {
+        mappingDelete.add(new HandlersMappingEntry<T>(pattern, transportHandler, (Class) appHandlerClass));
+        return this;
+    }
+
+
     List<HandlersMappingEntry<? extends RestHandler>> getMappingGet() {
         return mappingGet;
     }
@@ -74,6 +92,10 @@ public class HandlersSubmapping {
         return mappingPut;
     }
 
+    List<HandlersMappingEntry<? extends RestHandler>> getMappingDelete() {
+        return mappingDelete;
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -84,6 +106,7 @@ public class HandlersSubmapping {
         sb.append("{mappingGet=").append(mappingGet);
         sb.append(", mappingPost=").append(mappingPost);
         sb.append(", mappingPut=").append(mappingPut);
+        sb.append(", mappingDelete=").append(mappingDelete);
         sb.append('}');
         return sb.toString();
     }
