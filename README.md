@@ -119,6 +119,10 @@ This project is released under the [Apache License 2.0](http://www.apache.org/li
 Changelog
 ---------
 
+**1.2.1** (2015-04-01)
+
+* HEAD support
+
 **1.2** (2015-03-30)
 
  * DELETE support

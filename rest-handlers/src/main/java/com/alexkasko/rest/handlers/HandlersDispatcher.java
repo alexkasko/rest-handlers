@@ -60,7 +60,7 @@ public class HandlersDispatcher {
     public void dispatch(HttpServletRequest req, HttpServletResponse resp) {
         try {
             final List<HandlersMappingEntry<?>> mapping;
-            if("GET".equals(req.getMethod())) mapping = registryGet;
+            if("GET".equals(req.getMethod()) || "HEAD".equals(req.getMethod())) mapping = registryGet;
             else if("POST".equals(req.getMethod())) mapping = registryPost;
             else if("PUT".equals(req.getMethod())) mapping = registryPut;
             else if("DELETE".equals(req.getMethod())) mapping = registryDelete;
