@@ -68,7 +68,7 @@
 <span class="sourceLineNo">060</span>    public void dispatch(HttpServletRequest req, HttpServletResponse resp) {<a name="line.60"></a>
 <span class="sourceLineNo">061</span>        try {<a name="line.61"></a>
 <span class="sourceLineNo">062</span>            final List&lt;HandlersMappingEntry&lt;?&gt;&gt; mapping;<a name="line.62"></a>
-<span class="sourceLineNo">063</span>            if("GET".equals(req.getMethod())) mapping = registryGet;<a name="line.63"></a>
+<span class="sourceLineNo">063</span>            if("GET".equals(req.getMethod()) || "HEAD".equals(req.getMethod())) mapping = registryGet;<a name="line.63"></a>
 <span class="sourceLineNo">064</span>            else if("POST".equals(req.getMethod())) mapping = registryPost;<a name="line.64"></a>
 <span class="sourceLineNo">065</span>            else if("PUT".equals(req.getMethod())) mapping = registryPut;<a name="line.65"></a>
 <span class="sourceLineNo">066</span>            else if("DELETE".equals(req.getMethod())) mapping = registryDelete;<a name="line.66"></a>
